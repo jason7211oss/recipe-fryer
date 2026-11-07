@@ -6,33 +6,226 @@
 <style>
 *{box-sizing:border-box;font-family:system-ui,sans-serif;}
 body{padding:20px;margin:0;background:#f8f9fa;}
-h2{color:#222;}
-table{border-collapse: collapse;width:100%;background:#fff;}
-th,td{border:1px solid #ccc;padding:8px 10px;text-align:left;font-size:14px;}
-th{background:#e9ecef;}
-td{vertical-align:top;}
+h2{color:#222;margin-bottom:12px;}
+.filter-group{margin-bottom:14px;}
+.filter-group label{display:block;margin-bottom:6px;font-weight:500;color:#333;}
+.btn-group{gap:8px;display:flex;flex-wrap:wrap;}
+button{
+  padding:8px 14px;
+  border:1px solid #adb5bd;
+  background:#fff;
+  border-radius:6px;
+  font-size:14px;
+  cursor:pointer;
+}
+button.active{
+  background:#212529;
+  color:#fff;
+  border-color:#212529;
+}
+.table-wrap{overflow-x:auto;}
+table{border-collapse: collapse;width:max-content;background:#fff;min-width:100%;}
+th,td{border:1px solid #ccc;padding:10px 12px;text-align:left;font-size:14px;white-space:normal;}
+th{background:#e9ecef;position:sticky;top:0;}
+td{vertical-align:top;line-height:1.5;}
+td:nth-child(8), th:nth-child(8){min-width:320px;}
+td:nth-child(9), th:nth-child(9){min-width:220px;}
+td:nth-child(10), th:nth-child(10){min-width:260px;}
 </style>
 </head>
 <body>
 <h2>海尔炸烤一体机食谱</h2>
+
+<div class="filter-group">
+  <label>人群筛选：</label>
+  <div class="btn-group" id="group1">
+    <button data-val="all" class="active">全部</button>
+    <button data-val="fit">健身餐 fit</button>
+    <button data-val="kid">儿童餐 kid</button>
+    <button data-val="family">全家餐 family</button>
+  </div>
+</div>
+
+<div class="filter-group">
+  <label>餐段筛选：</label>
+  <div class="btn-group" id="group2">
+    <button data-val="all" class="active">全部</button>
+    <button data-val="breakfast">早餐</button>
+    <button data-val="lunch">午餐</button>
+    <button data-val="dinner">晚餐</button>
+  </div>
+</div>
+
+<div class="filter-group">
+  <label>做法筛选：</label>
+  <div class="btn-group" id="group3">
+    <button data-val="all" class="active">全部</button>
+    <button data-val="steam">蒸</button>
+    <button data-val="airfry">空气炸</button>
+    <button data-val="bake">烤</button>
+    <button data-val="braise">焖</button>
+    <button data-val="reheat">热风复热</button>
+    <button data-val="lowbake">低温慢烘</button>
+  </div>
+</div>
+
+<div class="filter-group">
+  <label>食材大类：</label>
+  <div class="btn-group" id="group4">
+    <button data-val="all" class="active">全部</button>
+    <button data-val="mushroom">菇类</button>
+    <button data-val="dessert">甜品</button>
+    <button data-val="frozen">冷冻速食</button>
+    <button data-val="seafood">海鲜鱼虾</button>
+    <button data-val="vegetable">蔬菜</button>
+    <button data-val="poultry">禽肉鸡蛋</button>
+  </div>
+</div>
+
+<div class="table-wrap">
 <script>
 data = [
-{"category":"鸡肉","name":"原味健身鸡胸薄片","people":["fit"],"meal":["lunch","dinner"],"cook":["airfry"],"temp":"170°C","time":"12–15 min","note":"切薄；少油海盐黑胡椒；中途翻面；不要久烤防止干柴；健身蛋白首选","ingredients":"鸡胸肉150g、海盐、黑胡椒、几滴橄榄油","steps":["鸡胸切薄片，吸干水分，简单腌制15分钟","单层平铺烤架，不要重叠","170°C，烤一半翻面","出炉静置3分钟再切锁住肉汁"]},
-{"category":"鸡肉","name":"香煎风味去皮鸡腿排","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"temp":"175°C","time":"17 min","note":"去皮为健身版本；保留皮更香油脂高；简单调味，清淡不重口；中途翻面","ingredients":"去骨鸡腿1只、海盐、黑胡椒、少许蒜粉","steps":["鸡腿洗净吸干，健身版撕掉鸡皮","撒调料腌制20分钟","放烤架，175°C中途翻面","烤至完全熟透、表面微焦"]},
-{"category":"鸡肉","name":"蒜香烤鸡胸条","people":["fit","family"],"meal":["lunch"],"cook":["airfry"],"temp":"170°C","time":"11 min","note":"切长条方便分餐；健身少油；适合搭配沙拉；不要烤干","ingredients":"鸡胸肉140g、蒜末、海盐、黑胡椒","steps":["鸡胸切粗条，加蒜末盐胡椒抓匀","单层摆放烤架","170°C，中途翻动一次"]},
-{"category":"鸡肉","name":"清炖风味烤鸡小胸","people":["fit"],"meal":["breakfast","lunch"],"cook":["lowbake"],"temp":"160°C","time":"14 min","note":"低温慢烤锁汁；几乎无油；适合减脂期；搭配蔬菜一起吃","ingredients":"鸡小胸2块、海盐、少许姜片","steps":["鸡小胸洗净吸干，放姜片腌10分钟","平铺烤架","160°C，时间不要拉长"]},
-{"category":"鸡肉","name":"清淡盐焗鸡块","people":["kid","family"],"meal":["dinner"],"cook":["airfry"],"temp":"175°C","time":"20 min","note":"盐焗粉少量，口味温和；提前腌1小时；适合全家和小朋友；中途翻面","ingredients":"鸡肉块200g、少量盐焗粉","steps":["鸡肉吸干，拌盐焗粉冷藏腌60分钟","分散摆烤架，不要堆叠","175°C中途翻面烤熟透"]},
-{"category":"鸡肉","name":"奥尔良烤鸡翅","people":["family","kid"],"meal":["dinner"],"cook":["airfry"],"temp":"180°C","time":"16 min","note":"腌2小时以上；含糖酱料，健身少吃；中途翻面；喜欢多汁可以轻喷水","ingredients":"鸡翅6只、奥尔良腌料","steps":["鸡翅划刀，腌料抓匀冷藏腌制","平铺烤架","180°C中途翻面"]},
-{"category":"鸡肉","name":"鸡肉蔬菜串","people":["fit","kid","family"],"meal":["lunch","dinner"],"cook":["airfry"],"temp":"170°C","time":"14 min","note":"鸡肉+彩椒+洋葱；清淡调味；竹签串好；小朋友爱吃，健身可以当一餐","ingredients":"去骨鸡腿肉、彩椒、洋葱、盐黑胡椒","steps":["食材切大小相近小块，串竹签","简单调味，放烤架","170°C中途翻面"]},
-{"category":"鸡肉","name":"烤整鸡半只（清淡版）","people":["family","fit"],"meal":["dinner"],"cook":["bake"],"temp":"170°C","time":"30 min","note":"选小半鸡；健身版去皮；中途翻面；牙签扎入无血水就是熟","ingredients":"半鸡、海盐、黑胡椒、蒜片","steps":["鸡洗净吸干，抹调料腌30分钟","放烤架，170°C，15分钟翻面","熟透取出"]},
-{"category":"鸡肉","name":"香菇鸡肉丸","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["airfry"],"temp":"165°C","time":"10 min","note":"自制鸡肉丸，少盐；高蛋白；冷冻直接烤；中途翻面","ingredients":"自制鸡肉香菇丸6–8颗","steps":["丸子表面轻划小口，放烤架","165°C中途翻面烤至鼓起"]},
-{"category":"鸡蛋","name":"槟城 Kopitiam 半生熟蛋","people":["family","kid","fit"],"meal":["breakfast"],"cook":["lowbake"],"temp":"150°C","time":"7 min","note":"整颗生鸡蛋直接放烤架！不要敲破；出炉后轻轻摇晃确认里面流动；吃的时候敲开，加少许酱油+白胡椒；不要烤太久，会变全熟；海尔炸烤一体机，用烤架，不是烤盘","ingredients":"新鲜鸡蛋1颗、少许酱油、白胡椒","steps":["鸡蛋洗净，完整放在烤架上","150°C，7分钟","取出，轻轻摇晃，蛋液呈流动状态即可","敲开蛋壳，加酱油、白胡椒直接吃"]},
-{"category":"鸡蛋","name":"烤荷包蛋（开放式）","people":["fit","family"],"meal":["breakfast"],"cook":["airfry"],"temp":"160°C","time":"6 min","note":"需要小烤盘/可烤小碗；鸡蛋直接打入碗里；想要溏心就缩短到5分钟；健身早餐","ingredients":"鸡蛋1颗、海盐、黑胡椒","steps":["鸡蛋打入耐热小碗，撒少许盐胡椒","160°C烘烤，观察蛋白凝固、蛋黄保留溏心"]},
-{"category":"鸡蛋","name":"水煮风蒸蛋","people":["fit","kid","family"],"meal":["breakfast"],"cook":["steam"],"temp":"130°C","time":"8 min","note":"碗加盖/保鲜膜扎孔；嫩滑；适合小朋友，清淡无油","ingredients":"鸡蛋1颗、温水、少许盐","steps":["鸡蛋+温水搅匀过筛，盖好，130°C蒸8分钟"]},
-{"category":"鸡蛋","name":"鸡蛋杯（蔬菜蛋羹）","people":["fit","kid"],"meal":["breakfast"],"cook":["bake"],"temp":"160°C","time":"10 min","note":"可以加切碎彩椒/蘑菇；少盐；无面粉，低碳健身餐","ingredients":"鸡蛋1颗、少量蔬菜碎、海盐","steps":["蛋液混合蔬菜碎倒入耐热杯，160°C烘烤定型"]}
+// ========== 禽肉鸡蛋 poultry ==========
+{"category":"鸡肉","name":"原味健身鸡胸薄片","people":["fit"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"170°C","time":"12–15 min","note":"切薄；少油海盐黑胡椒；中途翻面；不要久烤防止干柴；健身蛋白首选","ingredients":"鸡胸肉150g、海盐、黑胡椒、几滴橄榄油","steps":["鸡胸切薄片，吸干水分，简单腌制15分钟","单层平铺烤架，不要重叠","170°C，烤一半翻面","出炉静置3分钟再切锁住肉汁"]},
+{"category":"鸡肉","name":"去皮鸡腿排","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"175°C","time":"17 min","note":"去皮为健身版本；保留皮更香油脂高；简单调味，清淡不重口；中途翻面","ingredients":"去骨鸡腿1只、海盐、黑胡椒、少许蒜粉","steps":["鸡腿洗净吸干，健身版撕掉鸡皮","撒调料腌制20分钟","放烤架，175°C中途翻面","烤至完全熟透、表面微焦"]},
+{"category":"鸡肉","name":"蒜香鸡胸条","people":["fit","family"],"meal":["lunch"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"170°C","time":"11 min","note":"切长条方便分餐；健身少油；适合搭配沙拉；不要烤干","ingredients":"鸡胸肉140g、蒜末、海盐、黑胡椒","steps":["鸡胸切粗条，加蒜末盐胡椒抓匀","单层摆放烤架","170°C，中途翻动一次"]},
+{"category":"鸡肉","name":"低温慢烘鸡小胸","people":["fit"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"poultry","temp":"160°C","time":"14 min","note":"低温慢烤锁汁；几乎无油；适合减脂期；搭配蔬菜一起吃","ingredients":"鸡小胸2块、海盐、少许姜片","steps":["鸡小胸洗净吸干，放姜片腌10分钟","平铺烤架","160°C，时间不要拉长"]},
+{"category":"鸡肉","name":"清淡盐焗鸡块","people":["kid","family"],"meal":["dinner"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"175°C","time":"20 min","note":"盐焗粉少量，口味温和；提前腌1小时；适合全家和小朋友；中途翻面","ingredients":"鸡肉块200g、少量盐焗粉","steps":["鸡肉吸干，拌盐焗粉冷藏腌60分钟","分散摆烤架，不要堆叠","175°C中途翻面烤熟透"]},
+{"category":"鸡肉","name":"奥尔良烤鸡翅","people":["family","kid"],"meal":["dinner"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"180°C","time":"16 min","note":"腌2小时以上；含糖酱料，健身少吃；中途翻面；喜欢多汁可以轻喷水","ingredients":"鸡翅6只、奥尔良腌料","steps":["鸡翅划刀，腌料抓匀冷藏腌制","平铺烤架","180°C中途翻面"]},
+{"category":"鸡肉","name":"鸡肉蔬菜串","people":["fit","kid","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"170°C","time":"14 min","note":"鸡肉+彩椒+洋葱；清淡调味；竹签串好；小朋友爱吃，健身可以当一餐","ingredients":"去骨鸡腿肉、彩椒、洋葱、盐黑胡椒","steps":["食材切大小相近小块，串竹签","简单调味，放烤架","170°C中途翻面"]},
+{"category":"鸡肉","name":"清淡烤半鸡","people":["family","fit"],"meal":["dinner"],"cook":["bake"],"cookKey":"bake","type":"poultry","temp":"170°C","time":"30 min","note":"选小半鸡；健身版去皮；中途翻面；牙签扎入无血水就是熟","ingredients":"半鸡、海盐、黑胡椒、蒜片","steps":["鸡洗净吸干，抹调料腌30分钟","放烤架，170°C，15分钟翻面","熟透取出"]},
+{"category":"鸡肉","name":"香菇鸡肉丸","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"165°C","time":"10 min","note":"自制鸡肉丸，少盐；高蛋白；冷冻直接烤；中途翻面","ingredients":"自制鸡肉香菇丸6–8颗","steps":["丸子表面轻划小口，放烤架","165°C中途翻面烤至鼓起"]},
+{"category":"鸡肉","name":"焖鸡丝豆腐","people":["kid","family"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"poultry","temp":"160°C","time":"22 min","note":"焖模式，汤汁少量；清淡鲜甜，适合孩子；鸡肉撕细丝更嫩","ingredients":"鸡胸丝、嫩豆腐、少许生抽、清水","steps":["全部放入深烤盘，加少量水盖锡纸","160°C焖至入味"]},
+{"category":"鸡肉","name":"蒸鸡胸肉糕","people":["fit","kid"],"meal":["breakfast","lunch"],"cook":["steam"],"cookKey":"steam","type":"poultry","temp":"130°C","time":"12 min","note":"打成肉泥，少盐；软嫩好消化，减脂辅食都合适","ingredients":"鸡胸肉泥、少许马蹄碎、盐","steps":["肉泥搅匀装碗，封锡纸扎孔","130°C蒸熟"]},
+{"category":"鸡肉","name":"热风复热熟鸡扒","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["reheat"],"cookKey":"reheat","type":"poultry","temp":"150°C","time":"6 min","note":"隔夜熟鸡扒；表面喷一点水防止干柴；快速回温","ingredients":"熟鸡扒","steps":["放烤架，喷水，150°C热风复热"]},
+{"category":"鸡肉","name":"低温慢烘鸡肉干","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"poultry","temp":"110°C","time":"60 min","note":"薄片腌制；无油低脂零食；适合健身加餐","ingredients":"鸡胸薄片、少许生抽、黑胡椒","steps":["薄片腌好平铺烤架，110°C慢烘风干"]},
+{"category":"鸡肉","name":"烤鸡肉卷","people":["kid","family"],"meal":["lunch","dinner"],"cook":["bake"],"cookKey":"bake","type":"poultry","temp":"170°C","time":"15 min","note":"鸡皮卷蔬菜；少油版本；小朋友很喜欢","ingredients":"鸡薄片、胡萝卜、黄瓜","steps":["卷好固定，放烤架烘烤"]},
+{"category":"鸡肉","name":"清蒸鸡腿","people":["fit","kid","family"],"meal":["dinner"],"cook":["steam"],"cookKey":"steam","type":"poultry","temp":"135°C","time":"18 min","note":"原汁原味，少油清淡；健身和儿童首选蛋白","ingredients":"去骨鸡腿、姜片、少许盐","steps":["放烤盘，加姜片，封锡纸蒸制"]},
+{"category":"鸡蛋","name":"槟城Kopitiam半生熟蛋","people":["family","kid","fit"],"meal":["breakfast"],"cook":["lowbake"],"cookKey":"lowbake","type":"poultry","temp":"150°C","time":"7 min","note":"整颗生鸡蛋直接放烤架！不要敲破；出炉后轻轻摇晃确认里面流动；吃的时候敲开，加少许酱油+白胡椒；不要烤太久，会变全熟；海尔炸烤一体机，用烤架，不是烤盘","ingredients":"新鲜鸡蛋1颗、少许酱油、白胡椒","steps":["鸡蛋洗净，完整放在烤架上","150°C，7分钟","取出，轻轻摇晃，蛋液呈流动状态即可","敲开蛋壳，加酱油、白胡椒直接吃"]},
+{"category":"鸡蛋","name":"烤开放式荷包蛋","people":["fit","family"],"meal":["breakfast"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"160°C","time":"6 min","note":"需要小烤盘/可烤小碗；鸡蛋直接打入碗里；想要溏心就缩短到5分钟；健身早餐","ingredients":"鸡蛋1颗、海盐、黑胡椒","steps":["鸡蛋打入耐热小碗，撒少许盐胡椒","160°C烘烤，观察蛋白凝固、蛋黄保留溏心"]},
+{"category":"鸡蛋","name":"嫩滑蒸蛋羹","people":["fit","kid","family"],"meal":["breakfast"],"cook":["steam"],"cookKey":"steam","type":"poultry","temp":"130°C","time":"8 min","note":"碗加盖/保鲜膜扎孔；嫩滑；适合小朋友，清淡无油","ingredients":"鸡蛋1颗、温水、少许盐","steps":["鸡蛋+温水搅匀过筛，盖好，130°C蒸8分钟"]},
+{"category":"鸡蛋","name":"蔬菜鸡蛋杯","people":["fit","kid","family"],"meal":["breakfast"],"cook":["bake"],"cookKey":"bake","type":"poultry","temp":"160°C","time":"10 min","note":"可以加切碎彩椒/蘑菇；少盐；无面粉，低碳健身餐","ingredients":"鸡蛋1颗、少量蔬菜碎、海盐","steps":["蛋液混合蔬菜碎倒入耐热杯，160°C烘烤定型"]},
+{"category":"鸡蛋","name":"低温慢烘鸡蛋干","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"poultry","temp":"120°C","time":"25 min","note":"打散蛋液定型后低温烘干；低脂蛋白零食","ingredients":"鸡蛋、少量盐","steps":["蛋液蒸定型切薄片，120°C慢烘"]},
+{"category":"鸡蛋","name":"焖鸡蛋豆腐","people":["kid","family"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"poultry","temp":"155°C","time":"18 min","note":"鸡蛋+嫩豆腐焖煮，汤汁鲜甜，软嫩好入口","ingredients":"鸡蛋、嫩豆腐、少许生抽清水","steps":["放入深盘盖锡纸，焖制入味"]},
+{"category":"鸡蛋","name":"热风复热茶叶蛋","people":["family"],"meal":["breakfast"],"cook":["reheat"],"cookKey":"reheat","type":"poultry","temp":"140°C","time":"5 min","note":"卤好的茶叶蛋凉了复热；不用加水，快速回温","ingredients":"熟茶叶蛋","steps":["放烤架直接热风复热"]},
+{"category":"鸡蛋","name":"空气炸厚蛋烧","people":["fit","kid","family"],"meal":["breakfast"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"155°C","time":"9 min","note":"蛋液分次倒入烤盘；清淡无油，适合早餐","ingredients":"鸡蛋2颗、少许盐","steps":["倒入耐热烤盘，分次烘烤定型"]},
+{"category":"鸡蛋","name":"烤芝士鸡蛋盅","people":["family","kid"],"meal":["breakfast"],"cook":["bake"],"cookKey":"bake","type":"poultry","temp":"165°C","time":"8 min","note":"鸡蛋+少量芝士，不要过多芝士；香浓早餐","ingredients":"鸡蛋、少量芝士碎","steps":["打入小碗铺芝士，烘烤至芝士融化"]},
+{"category":"鸡蛋","name":"蒸皮蛋鸡蛋羹","people":["family"],"meal":["dinner"],"cook":["steam"],"cookKey":"steam","type":"poultry","temp":"130°C","time":"10 min","note":"皮蛋切碎和蛋液同蒸；风味清淡；不适合太小孩子","ingredients":"鸡蛋、皮蛋、温水、盐","steps":["搅匀过筛，封膜蒸制"]},
+{"category":"鸭肉","name":"空气炸鸭胸薄片","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"170°C","time":"13 min","note":"健身版本去掉鸭皮；鸭皮油脂很高，减脂尽量不吃","ingredients":"鸭胸肉、海盐、黑胡椒","steps":["切薄片吸干水分，单层摆放烘烤翻面"]},
+{"category":"鸭肉","name":"低温慢烘鸭胸肉干","people":["fit","family"],"meal":["lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"poultry","temp":"110°C","time":"70 min","note":"薄片腌制风干；低脂加餐零食","ingredients":"鸭胸薄片、少许腌料","steps":["平铺烤架长时间低温烘干"]},
+{"category":"鸭肉","name":"焖冬瓜鸭片","people":["family","kid"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"poultry","temp":"160°C","time":"25 min","note":"鸭肉+冬瓜焖，汤汁清甜，马来西亚家常口味","ingredients":"鸭片、冬瓜、少许生抽","steps":["深盘加水盖锡纸焖煮"]},
+{"category":"鸭肉","name":"热风复热卤鸭","people":["family"],"meal":["dinner"],"cook":["reheat"],"cookKey":"reheat","type":"poultry","temp":"150°C","time":"7 min","note":"隔夜卤鸭复热，表面轻喷水防干","ingredients":"卤鸭块","steps":["放烤架热风回温"]},
+{"category":"鹌鹑蛋","name":"空气炸卤鹌鹑蛋","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["airfry"],"cookKey":"airfry","type":"poultry","temp":"160°C","time":"8 min","note":"卤好的鹌鹑蛋，表皮微焦更香；少盐版本","ingredients":"熟鹌鹑蛋、卤汁","steps":["沥干放烤架烘烤"]},
+{"category":"鹌鹑蛋","name":"蒸鹌鹑蛋羹","people":["kid","fit"],"meal":["breakfast"],"cook":["steam"],"cookKey":"steam","type":"poultry","temp":"125°C","time":"7 min","note":"超嫩，适合幼儿；高蛋白","ingredients":"鹌鹑蛋、温水、盐","steps":["搅匀过筛封膜蒸制"]},
+// ========== 海鲜鱼虾 seafood ==========
+{"category":"海鲜","name":"香烤巴沙鱼柳","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"seafood","temp":"165°C","time":"10 min","note":"无刺，适合小孩；健身优质蛋白；不要烤老","ingredients":"巴沙鱼柳、海盐、黑胡椒、柠檬汁","steps":["吸干水分，撒调料，单层烤架，中途翻面"]},
+{"category":"海鲜","name":"低温慢烘三文鱼片","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"seafood","temp":"140°C","time":"12 min","note":"低温锁住鱼油；健身优质脂肪；清淡调味","ingredients":"三文鱼、海盐、黑胡椒","steps":["平铺烤架，低温慢烘，不要烤干"]},
+{"category":"海鲜","name":"清蒸石斑鱼块","people":["fit","kid","family"],"meal":["dinner"],"cook":["steam"],"cookKey":"steam","type":"seafood","temp":"135°C","time":"14 min","note":"原汁原味，少油；槟城家常海鲜；适合全家","ingredients":"石斑鱼块、姜片、少许生抽","steps":["放烤盘，铺姜片，封锡纸蒸制"]},
+{"category":"海鲜","name":"空气炸大虾","people":["fit","kid","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"seafood","temp":"175°C","time":"9 min","note":"开背去虾线；少盐；中途翻面；不要烤太久虾肉会柴","ingredients":"大虾、海盐、蒜粉","steps":["洗净吸干，平铺烤架烘烤"]},
+{"category":"海鲜","name":"焖豆腐虾","people":["kid","family"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"seafood","temp":"160°C","time":"20 min","note":"大虾+嫩豆腐焖，汤汁鲜甜；软嫩适合孩子","ingredients":"大虾、嫩豆腐、少量清水生抽","steps":["深盘加水盖锡纸焖入味"]},
+{"category":"海鲜","name":"烤鱿鱼圈","people":["family","kid"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"seafood","temp":"170°C","time":"8 min","note":"不要烤太久，容易变硬；清淡调味","ingredients":"鱿鱼圈、海盐、黑胡椒","steps":["吸干水分平铺烤架"]},
+{"category":"海鲜","name":"热风复热熟虾","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["reheat"],"cookKey":"reheat","type":"seafood","temp":"145°C","time":"5 min","note":"白灼虾凉了复热，快速回温，喷水防干","ingredients":"熟大虾","steps":["放烤架热风复热"]},
+{"category":"海鲜","name":"烤龙利鱼","people":["fit","kid","family"],"meal":["lunch","dinner"],"cook":["bake"],"cookKey":"bake","type":"seafood","temp":"165°C","time":"11 min","note":"无刺低脂；健身首选；搭配柠檬去腥","ingredients":"龙利鱼柳、柠檬、盐","steps":["放烤架烘烤，中途翻面"]},
+{"category":"海鲜","name":"蒸扇贝","people":["family"],"meal":["dinner"],"cook":["steam"],"cookKey":"steam","type":"seafood","temp":"135°C","time":"10 min","note":"蒜蓉少量，清淡版本；不要重辣","ingredients":"扇贝、少量蒜蓉、生抽","steps":["摆盘封锡纸蒸制"]},
+{"category":"海鲜","name":"低温慢烘小鱼干","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"seafood","temp":"110°C","time":"50 min","note":"新鲜小鱼腌制烘干；低脂海鲜零食","ingredients":"小海鱼、少许盐","steps":["洗净腌好平铺烤架慢烘"]},
+{"category":"海鲜","name":"空气炸墨鱼丸","people":["kid","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"seafood","temp":"170°C","time":"10 min","note":"冷冻直接烤；Q弹；马来西亚常见鱼丸","ingredients":"墨鱼丸","steps":["摆烤架，中途翻动一次"]},
+{"category":"海鲜","name":"焖丝瓜鱼片","people":["family","kid"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"seafood","temp":"155°C","time":"21 min","note":"丝瓜+鱼片焖，清甜爽口","ingredients":"鱼片、丝瓜、少许清水","steps":["深盘盖锡纸焖煮"]},
+{"category":"海鲜","name":"烤带子","people":["family"],"meal":["dinner"],"cook":["bake"],"cookKey":"bake","type":"seafood","temp":"170°C","time":"9 min","note":"带子肉，少量蒜蓉；清淡鲜美的海鲜","ingredients":"带子、蒜蓉、少许生抽","steps":["放烤盘烘烤"]},
+{"category":"海鲜","name":"蒸虾仁水蛋","people":["fit","kid"],"meal":["breakfast"],"cook":["steam"],"cookKey":"steam","type":"seafood","temp":"130°C","time":"9 min","note":"虾仁铺在蛋羹上面，鲜上加鲜，高蛋白","ingredients":"虾仁、鸡蛋、温水、盐","steps":["蛋液先蒸半熟，放虾仁继续蒸"]},
+{"category":"海鲜","name":"空气炸腌巴丁鱼","people":["family","fit"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"seafood","temp":"175°C","time":"13 min","note":"槟城常见淡水鱼；简单腌制，少油烘烤","ingredients":"巴丁鱼、盐、姜黄粉少许","steps":["吸干水分，放烤架烘烤翻面"]},
+{"category":"海鲜","name":"热风复热卤鱼块","people":["family"],"meal":["dinner"],"cook":["reheat"],"cookKey":"reheat","type":"seafood","temp":"150°C","time":"6 min","note":"隔夜卤鱼回温，少量喷水防干","ingredients":"卤鱼块","steps":["放烤架热风复热"]},
+{"category":"海鲜","name":"烤三文鱼骨","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"seafood","temp":"180°C","time":"12 min","note":"补钙；少油；烤到边缘微焦","ingredients":"三文鱼骨、海盐","steps":["平铺烤架烘烤"]},
+// ========== 蔬菜 vegetable ==========
+{"category":"蔬菜","name":"烤西兰花","people":["fit","kid","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"vegetable","temp":"170°C","time":"9 min","note":"小朵，少油；健身配菜；中途翻拌；不要烤发黄","ingredients":"西兰花、少许橄榄油、海盐","steps":["切小朵吸干，平铺烤架"]},
+{"category":"蔬菜","name":"烤胡萝卜条","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["airfry"],"cookKey":"airfry","type":"vegetable","temp":"170°C","time":"11 min","note":"甜软，小朋友爱吃；健身配菜","ingredients":"胡萝卜、少许油、盐","steps":["切条平铺烘烤"]},
+{"category":"蔬菜","name":"蒸南瓜","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["steam"],"cookKey":"steam","type":"vegetable","temp":"130°C","time":"13 min","note":"天然碳水，健身主食；清甜软糯","ingredients":"南瓜块","steps":["切块摆盘封锡纸蒸"]},
+{"category":"蔬菜","name":"低温慢烘甜菜根片","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"vegetable","temp":"120°C","time":"40 min","note":"做成蔬菜脆片，无添加糖油","ingredients":"甜菜根","steps":["切薄片平铺烤架慢烘干脆"]},
+{"category":"蔬菜","name":"焖杂菜","people":["kid","family"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"vegetable","temp":"160°C","time":"20 min","note":"玉米、胡萝卜、土豆一起焖；清淡鲜甜","ingredients":"杂蔬、少量清水","steps":["深盘加水盖锡纸焖软"]},
+{"category":"蔬菜","name":"烤甜椒","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"vegetable","temp":"175°C","time":"10 min","note":"烤到表皮起皱；沙拉配菜，香甜","ingredients":"彩甜椒、少许油盐","steps":["切块平铺烘烤"]},
+{"category":"蔬菜","name":"热风复热熟蔬菜","people":["fit","family"],"meal":["lunch","dinner"],"cook":["reheat"],"cookKey":"reheat","type":"vegetable","temp":"140°C","time":"5 min","note":"预煮好的蔬菜快速回温，健身便当","ingredients":"熟杂蔬","steps":["放烤架热风复热"]},
+{"category":"蔬菜","name":"烤节瓜","people":["fit","family"],"meal":["lunch","dinner"],"cook":["bake"],"cookKey":"bake","type":"vegetable","temp":"170°C","time":"8 min","note":"水分大，不要烤太久；低脂配菜","ingredients":"节瓜、海盐黑胡椒","steps":["切片平铺烤架"]},
+{"category":"蔬菜","name":"蒸红薯","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["steam"],"cookKey":"steam","type":"vegetable","temp":"135°C","time":"18 min","note":"健身优质碳水；直接蒸原汁原味","ingredients":"红薯","steps":["洗净整颗或者切块蒸"]},
+{"category":"蔬菜","name":"低温慢烘秋葵脆","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"vegetable","temp":"110°C","time":"45 min","note":"秋葵烘干做成脆片，健康零食","ingredients":"秋葵、少许盐","steps":["切蒂吸干平铺烤架慢烘"]},
+{"category":"蔬菜","name":"烤土豆块","people":["family","kid"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"vegetable","temp":"180°C","time":"14 min","note":"健身可当主食；少油；中途翻面","ingredients":"土豆、少许橄榄油、盐","steps":["切小块泡水去淀粉，吸干烘烤"]},
+{"category":"蔬菜","name":"焖茄子","people":["family"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"vegetable","temp":"160°C","time":"22 min","note":"茄子焖软，清淡酱汁，马来西亚家常","ingredients":"茄子、少量生抽清水","steps":["切块放深盘盖锡纸焖"]},
+{"category":"蔬菜","name":"烤芦笋","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"vegetable","temp":"170°C","time":"7 min","note":"非常快熟；健身配菜，不要烤老","ingredients":"芦笋、少许油盐","steps":["根部修掉，平铺烘烤"]},
+{"category":"蔬菜","name":"蒸山药","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["steam"],"cookKey":"steam","type":"vegetable","temp":"130°C","time":"15 min","note":"温和碳水，养胃；适合孩子和减脂人群","ingredients":"山药","steps":["去皮切段蒸制"]},
+{"category":"蔬菜","name":"烤玉米段","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["airfry"],"cookKey":"airfry","type":"vegetable","temp":"170°C","time":"10 min","note":"甜玉米，直接烤，香甜；健身主食","ingredients":"甜玉米","steps":["切段放烤架烘烤"]},
+{"category":"蔬菜","name":"焖白菜豆腐","people":["kid","family"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"vegetable","temp":"155°C","time":"19 min","note":"清甜素焖菜，清淡爽口","ingredients":"白菜、嫩豆腐、少量清水","steps":["深盘盖锡纸焖软"]},
+{"category":"蔬菜","name":"烤小番茄","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["bake"],"cookKey":"bake","type":"vegetable","temp":"165°C","time":"8 min","note":"烤出酸甜汁水；搭配鸡胸、鱼虾都合适","ingredients":"小番茄、少许盐","steps":["整颗平铺烤架"]},
+// ========== 菇类 mushroom ==========
+{"category":"菇类","name":"蒜香烤香菇","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"mushroom","temp":"180°C","time":"10 min","note":"去蒂，刷少许橄榄油蒜蓉；中途翻面；不要烤太干","ingredients":"鲜香菇、蒜末、少许橄榄油、海盐","steps":["香菇洗净吸干，划十字花刀","抹蒜油，放烤架","180°C烤到出水微焦"]},
+{"category":"菇类","name":"烤杏鲍菇条","people":["fit"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"mushroom","temp":"175°C","time":"12 min","note":"切粗条，少油；减脂配菜；中途翻动","ingredients":"杏鲍菇、黑胡椒、海盐","steps":["切条吸干水分，简单调味","单层摆放烤架","中途翻一次"]},
+{"category":"菇类","name":"低温慢烘平菇干","people":["family"],"meal":["dinner"],"cook":["lowbake"],"cookKey":"lowbake","type":"mushroom","temp":"120°C","time":"35 min","note":"低温烘干，做成菌菇零食；薄摊，不要堆叠","ingredients":"平菇、少许盐","steps":["撕小朵，吸干水分","平铺烤架","120°C慢烘到干脆"]},
+{"category":"菇类","name":"焖鲜菇豆腐","people":["kid","family"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"mushroom","temp":"160°C","time":"22 min","note":"使用焖模式；汤汁少量；适合小朋友，清淡","ingredients":"金针菇、嫩豆腐、少许生抽","steps":["食材放入深烤盘，加少量清水","盖锡纸，160°C焖制"]},
+{"category":"菇类","name":"烤口蘑（原只）","people":["fit","family"],"meal":["breakfast","lunch"],"cook":["airfry"],"cookKey":"airfry","type":"mushroom","temp":"170°C","time":"9 min","note":"口蘑蒂朝上，烤出天然汁水，不用额外加水","ingredients":"口蘑、海盐、黑胡椒","steps":["洗净吸干，摆烤架","170°C烤至中间蓄满汁水"]},
+{"category":"菇类","name":"蒸香菇鸡肉盏","people":["fit","kid","family"],"meal":["lunch","dinner"],"cook":["steam"],"cookKey":"steam","type":"mushroom","temp":"130°C","time":"12 min","note":"香菇盏填入鸡肉泥，鲜香味美，少盐","ingredients":"香菇、鸡肉泥、少许盐","steps":["去蒂填馅，摆盘封锡纸蒸"]},
+{"category":"菇类","name":"热风复热熟杂菇","people":["fit","family"],"meal":["lunch","dinner"],"cook":["reheat"],"cookKey":"reheat","type":"mushroom","temp":"140°C","time":"5 min","note":"做好的菌菇配菜快速回温，健身便当","ingredients":"熟杂菇","steps":["放烤架热风复热"]},
+{"category":"菇类","name":"烤蟹味菇","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"mushroom","temp":"170°C","time":"9 min","note":"散开摆放，不要结块；少油调味","ingredients":"蟹味菇、少许油盐黑胡椒","steps":["撕开吸干平铺烤架烘烤"]},
+{"category":"菇类","name":"低温慢烘香菇脆","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"mushroom","temp":"110°C","time":"42 min","note":"香菇切片烘干；健康零食，无过多油糖","ingredients":"香菇、少许盐","steps":["切片平铺烤架长时间慢烘"]},
+{"category":"菇类","name":"焖金针菇娃娃菜","people":["kid","family"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"mushroom","temp":"155°C","time":"20 min","note":"金针菇+娃娃菜焖，清甜素焖菜","ingredients":"金针菇、娃娃菜、少量清水生抽","steps":["深盘盖锡纸焖软"]},
+{"category":"菇类","name":"烤杏鲍菇片","people":["fit","family"],"meal":["lunch","dinner"],"cook":["bake"],"cookKey":"bake","type":"mushroom","temp":"170°C","time":"10 min","note":"薄片烘烤，口感类似肉；健身配菜","ingredients":"杏鲍菇、海盐黑胡椒","steps":["切片平铺烤架"]},
+{"category":"菇类","name":"蒸菌菇蛋羹","people":["fit","kid"],"meal":["breakfast"],"cook":["steam"],"cookKey":"steam","type":"mushroom","temp":"130°C","time":"9 min","note":"切碎菌菇加入蛋液一起蒸，鲜香嫩滑","ingredients":"杂菌碎、鸡蛋、温水、盐","steps":["搅匀过筛封膜蒸制"]},
+{"category":"菇类","name":"烤鹿茸菇","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"mushroom","temp":"175°C","time":"11 min","note":"鹿茸菇烤脆很香；少盐少油版本","ingredients":"鹿茸菇、少许油盐","steps":["吸干平铺烘烤"]},
+{"category":"菇类","name":"焖香菇滑鸡","people":["family","kid"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"mushroom","temp":"160°C","time":"24 min","note":"香菇焖鸡块，马来西亚家常风味，少盐版本","ingredients":"鸡块、干香菇、少许生抽清水","steps":["放入深盘盖锡纸焖入味"]},
+{"category":"菇类","name":"烤白玉菇","people":["fit","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"mushroom","temp":"170°C","time":"8 min","note":"白玉菇很容易熟，不要烤干；搭配肉类一起吃","ingredients":"白玉菇、少许盐黑胡椒","steps":["撕开吸干平铺烘烤"]},
+{"category":"菇类","name":"低温慢烘杂菌混合脆片","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"mushroom","temp":"110°C","time":"48 min","note":"多种菌菇混合烘干；零食款","ingredients":"混合鲜菇、少许盐","steps":["撕小朵平铺烤架慢烘"]},
+{"category":"菇类","name":"热风复热香菇焖鸡剩菜","people":["family"],"meal":["dinner"],"cook":["reheat"],"cookKey":"reheat","type":"mushroom","temp":"150°C","time":"6 min","note":"隔夜香菇焖鸡，少量喷水回温","ingredients":"香菇焖鸡","steps":["放烤架热风复热"]},
+// ========== 甜品 dessert ==========
+{"category":"甜品","name":"空气炸烤香蕉","people":["kid","family"],"meal":["breakfast"],"cook":["airfry"],"cookKey":"airfry","type":"dessert","temp":"160°C","time":"8 min","note":"带皮烤；香甜软糯；简单甜品","ingredients":"香蕉1根","steps":["整根香蕉放烤架","160°C烤至表皮发黑变软"]},
+{"category":"甜品","name":"烤红薯布丁","people":["family","kid"],"meal":["breakfast"],"cook":["bake"],"cookKey":"bake","type":"dessert","temp":"155°C","time":"18 min","note":"低糖版本；适合小朋友；容器不要装满","ingredients":"红薯泥、鸡蛋、少量牛奶","steps":["混合搅匀倒入小碗","155°C烘烤定型"]},
+{"category":"甜品","name":"低温慢烘苹果片","people":["fit","kid"],"meal":["breakfast"],"cook":["lowbake"],"cookKey":"lowbake","type":"dessert","temp":"110°C","time":"45 min","note":"无添加糖；水果零食；薄片摊开","ingredients":"苹果","steps":["切薄片，去籽，平铺烤架","110°C慢烘风干"]},
+{"category":"甜品","name":"烤芝士吐司","people":["family","kid"],"meal":["breakfast"],"cook":["airfry"],"cookKey":"airfry","type":"dessert","temp":"170°C","time":"6 min","note":"芝士融化即可，注意不要烤焦","ingredients":"吐司、芝士片","steps":["吐司放烤架，铺上芝士","170°C烘烤至芝士冒泡"]},
+{"category":"甜品","name":"烤糯米糕","people":["family"],"meal":["dinner"],"cook":["bake"],"cookKey":"bake","type":"dessert","temp":"165°C","time":"15 min","note":"表面微刷一层薄油；外脆内软","ingredients":"糯米糕","steps":["切片，摆烤架","165°C烘烤"]},
+{"category":"甜品","name":"蒸南瓜糕","people":["fit","kid","family"],"meal":["breakfast"],"cook":["steam"],"cookKey":"steam","type":"dessert","temp":"130°C","time":"14 min","note":"南瓜+少量糯米粉，低糖；软糯香甜","ingredients":"南瓜泥、少量糯米粉","steps":["装模封锡纸蒸定型"]},
+{"category":"甜品","name":"热风复热烤包","people":["family","kid"],"meal":["breakfast"],"cook":["reheat"],"cookKey":"reheat","type":"dessert","temp":"150°C","time":"5 min","note":"凉的甜面包复热，表面喷一点点水，外皮松软","ingredients":"甜面包","steps":["放烤架热风复热"]},
+{"category":"甜品","name":"烤梨","people":["family","kid"],"meal":["breakfast","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"dessert","temp":"160°C","time":"12 min","note":"整梨去核，可放一点点红枣；润喉甜品","ingredients":"雪梨","steps":["整梨放烤架烘烤"]},
+{"category":"甜品","name":"低温慢烘芒果干","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"dessert","temp":"110°C","time":"60 min","note":"新鲜芒果切片烘干；不加糖，天然甜","ingredients":"芒果","steps":["切薄片平铺烤架慢烘"]},
+{"category":"甜品","name":"烤紫薯泥盅","people":["fit","family"],"meal":["breakfast"],"cook":["bake"],"cookKey":"bake","type":"dessert","temp":"160°C","time":"14 min","note":"紫薯压泥，低脂碳水甜品；不加糖","ingredients":"紫薯","steps":["压泥装小碗烘烤加热"]},
+{"category":"甜品","name":"蒸香芋糕","people":["family","kid"],"meal":["breakfast"],"cook":["steam"],"cookKey":"steam","type":"dessert","temp":"130°C","time":"16 min","note":"香芋+少量淀粉，低糖；槟城常见糕点","ingredients":"香芋泥、少许淀粉","steps":["装模封锡纸蒸制"]},
+{"category":"甜品","name":"烤菠萝片","people":["family","kid"],"meal":["breakfast","lunch"],"cook":["airfry"],"cookKey":"airfry","type":"dessert","temp":"165°C","time":"9 min","note":"菠萝切片烘烤，酸甜浓缩；不要烤太干","ingredients":"新鲜菠萝","steps":["切片平铺烤架烘烤"]},
+{"category":"甜品","name":"焖银耳雪梨羹","people":["family","kid"],"meal":["dinner"],"cook":["braise"],"cookKey":"braise","type":"dessert","temp":"150°C","time":"30 min","note":"银耳雪梨放深盘加水盖锡纸焖，温润甜品","ingredients":"银耳、雪梨、少量清水","steps":["深盘盖锡纸焖至胶质出来"]},
+{"category":"甜品","name":"烤玉米布丁","people":["family","kid"],"meal":["breakfast"],"cook":["bake"],"cookKey":"bake","type":"dessert","temp":"155°C","time":"17 min","note":"甜玉米+鸡蛋牛奶，低糖布丁","ingredients":"甜玉米碎、鸡蛋、少量牛奶","steps":["搅匀入小碗烘烤"]},
+{"category":"甜品","name":"低温慢烘番石榴干","people":["fit","kid","family"],"meal":["breakfast","lunch"],"cook":["lowbake"],"cookKey":"lowbake","type":"dessert","temp":"110°C","time":"55 min","note":"槟城本地番石榴，切片烘干，天然零食","ingredients":"番石榴","steps":["切薄片平铺烤架慢烘"]},
+{"category":"甜品","name":"蒸马蹄糕","people":["family"],"meal":["breakfast"],"cook":["steam"],"cookKey":"steam","type":"dessert","temp":"130°C","time":"15 min","note":"马来华人传统马蹄糕，清淡版本少糖","ingredients":"马蹄粉、马蹄碎","steps":["入模封锡纸蒸熟放凉"]},
+{"category":"甜品","name":"热风复热红豆包","people":["family","kid"],"meal":["breakfast"],"cook":["reheat"],"cookKey":"reheat","type":"dessert","temp":"150°C","time":"6 min","note":"冷冻/凉红豆包复热，喷水防干硬","ingredients":"红豆包","steps":["放烤架热风复热"]},
+// ========== 冷冻速食 frozen ==========
+{"category":"冷冻速食","name":"冷冻包子复热","people":["family","kid","fit"],"meal":["breakfast"],"cook":["reheat"],"cookKey":"reheat","type":"frozen","temp":"160°C","time":"7 min","note":"热风复热模式；表面喷一点点水，防止干硬","ingredients":"冷冻包子","steps":["直接放烤架，喷水","160°C热风复热"]},
+{"category":"冷冻速食","name":"冷冻薯条","people":["family","kid"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"frozen","temp":"180°C","time":"14 min","note":"无需解冻；中途翻面；可以撒盐","ingredients":"冷冻薯条","steps":["平铺烤架，不要堆叠","180°C中途翻面"]},
+{"category":"冷冻速食","name":"冷冻鱼丸","people":["kid","family"],"meal":["dinner"],"cook":["airfry"],"cookKey":"airfry","type":"frozen","temp":"170°C","time":"11 min","note":"冷冻直接烤，表面微喷油更香","ingredients":"冷冻鱼丸","steps":["放烤架，中途翻动一次"]},
+{"category":"冷冻速食","name":"冷冻烧卖","people":["family","kid"],"meal":["breakfast"],"cook":["reheat"],"cookKey":"reheat","type":"frozen","temp":"155°C","time":"8 min","note":"热风复热，喷水防干","ingredients":"冷冻烧卖","steps":["摆烤架，轻喷水","155°C复热"]},
+{"category":"冷冻速食","name":"冷冻鸡块","people":["kid","family"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"frozen","temp":"180°C","time":"13 min","note":"无需解冻；中途翻面","ingredients":"冷冻鸡块","steps":["单层摆放烤架","180°C翻面一次"]},
+{"category":"冷冻速食","name":"冷冻虾饺（蒸）","people":["family","kid"],"meal":["breakfast"],"cook":["steam"],"cookKey":"steam","type":"frozen","temp":"130°C","time":"10 min","note":"冷冻直接蒸，不要解冻；广式点心","ingredients":"冷冻虾饺","steps":["放烤盘加水，封锡纸蒸"]},
+{"category":"冷冻速食","name":"冷冻春卷","people":["family","kid"],"meal":["lunch","dinner"],"cook":["airfry"],"cookKey":"airfry","type":"frozen","temp":"175°C","time":"10 min","note":"无需解冻；少油版本；中途翻面","ingredients":"冷冻春卷","steps":["平铺烤架烘烤"]},
+{"category":"冷冻速食","name":"冷冻叉烧包复热","people":["family","kid"],"meal":["breakfast"],"cook":["reheat"],"cookKey":"reheat","type":"frozen","temp":"160°C","time":"8 min","note":"表面喷水，防止面皮发干","ingredients":"冷冻叉烧包","steps":["烤架热风复热"]},
+{"category":"冷冻速食","name":"冷冻贡丸","people":["kid","family"],"meal":["dinner"],"cook":["airfry"],"cookKey":"airfry","type":"frozen","temp":"170°C","time":"10 min","note":"冷冻直接烤，Q弹；马来西亚火锅丸子","ingredients":"冷冻贡丸","steps":["放烤架中途翻动"]},
+{"category":"冷冻速食","name":"冷冻葡挞","people":["family","kid"],"meal":["breakfast"],"cook":["bake"],"cookKey":"bake","type":"frozen","temp":"170°C","time":"12 min","note":"冷冻直接烤，不用解冻；甜品点心","ingredients":"冷冻葡挞","steps":["摆烤架烘烤到挞皮起酥"]},
+{"category":"冷冻速食","name":"冷冻蔬菜包（焖）","people":["fit","family"],"meal":["lunch","dinner"],"cook":["braise"],"cookKey":"braise","type":"frozen","temp":"160°C","time":"18 min","note":"冷冻混合杂蔬，加少量水焖软，健身配菜","ingredients":"冷冻杂蔬包","steps":["深盘加水盖锡纸焖"]},
+{"category":"冷冻速食","name":"冷冻鱼豆腐","people":["kid","family"],"meal":["dinner"],"cook":["airfry"],"cookKey":"airfry","type":"frozen","temp":"170°C","time":"10 min","note":"马来西亚常见火锅料，冷冻直接烤","ingredients":"冷冻鱼豆腐","steps":["平铺烤架烘烤翻动"]},
+{"category":"冷冻速食","name":"冷冻流沙包复热","people":["family","kid"],"meal":["breakfast"],"cook":["reheat"],"cookKey":"reheat","type":"frozen","temp":"155°C","time":"7 min","note":"喷水，防止表皮干，流沙不容易变硬","ingredients":"冷冻流沙包","steps":["烤架热风复热"]},
+{"category":"冷冻速食","name":"冷冻薯饼","people":["family","kid"],"meal":["breakfast","lunch"],"cook":["airfry"],"cookKey":"airfry","type":"frozen","temp":"180°C","time":"12 min","note":"无需解冻；中途翻面，外脆里软","ingredients":"冷冻薯饼","steps":["单层摆放烤架烘烤"]},
+{"category":"冷冻速食","name":"冷冻云吞（蒸）","people":["family","kid"],"meal":["lunch","dinner"],"cook":["steam"],"cookKey":"steam","type":"frozen","temp":"130°C","time":"11 min","note":"冷冻云吞直接蒸，皮薄馅鲜","ingredients":"冷冻云吞","steps":["摆盘加水封锡纸蒸制"]},
+{"category":"冷冻速食","name":"冷冻芝士条","people":["family","kid"],"meal":["breakfast"],"cook":["bake"],"cookKey":"bake","type":"frozen","temp":"170°C","time":"9 min","note":"冷冻直接烤，芝士融化拉丝；不要烤太久爆浆","ingredients":"冷冻芝士条","steps":["放烤架烘烤"]},
+{"category":"冷冻速食","name":"冷冻萝卜糕（热风复热）","people":["family","kid"],"meal":["breakfast"],"cook":["reheat"],"cookKey":"reheat","type":"frozen","temp":"160°C","time":"9 min","note":"槟城常吃的萝卜糕，复热后香软","ingredients":"冷冻萝卜糕","steps":["放烤架轻喷水热风复热"]}
 ];
 
-function renderTable(list){
+let filter = {
+  group1:'all',
+  group2:'all',
+  group3:'all',
+  group4:'all'
+}
+
+const tableWrap = document.querySelector('.table-wrap');
+
+function renderTable(){
+  let list = data.filter(item=>{
+    if(filter.group1 !== 'all' && !item.people.includes(filter.group1)) return false;
+    if(filter.group2 !== 'all' && !item.meal.includes(filter.group2)) return false;
+    if(filter.group3 !== 'all' && item.cookKey !== filter.group3) return false;
+    if(filter.group4 !== 'all' && item.type !== filter.group4) return false;
+    return true;
+  })
   let html = `<table>
   <thead>
     <tr>
@@ -64,9 +257,27 @@ function renderTable(list){
     </tr>`
   })
   html += `</tbody></table>`;
-  document.body.innerHTML += html;
+  tableWrap.innerHTML = html;
 }
-renderTable(data);
+
+function bindGroup(id,key){
+  const btns = document.querySelectorAll(`#${id} button`);
+  btns.forEach(btn=>{
+    btn.onclick = ()=>{
+      btns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      filter[key] = btn.dataset.val;
+      renderTable();
+    }
+  })
+}
+bindGroup('group1','group1');
+bindGroup('group2','group2');
+bindGroup('group3','group3');
+bindGroup('group4','group4');
+
+renderTable();
 </script>
+</div>
 </body>
 </html>
